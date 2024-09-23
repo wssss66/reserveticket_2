@@ -45,7 +45,15 @@ public class Ticket {
 
     //<<< Clean Arch / Port Method
     public static void decreaseTicket(Reservedticket reservedticket) {
-        //implement business logic here:
+        repository().findById(Long.valueOf(reservedticket.getTicketid())).ifPresent(ticket->{
+            
+            ticket.setStock(ticket.getStock() - reservedticket.getQty()); // do something
+            repository().save(ticket);
+
+            // Decreasedticket decreasedticket = new Decreasedticket(ticket);
+            // decreasedticket.publishAfterCommit();
+
+         });
 
         /** Example 1:  new item 
         Ticket ticket = new Ticket();
@@ -74,6 +82,16 @@ public class Ticket {
     //<<< Clean Arch / Port Method
     public static void increaseticket(Canceledticket canceledticket) {
         //implement business logic here:
+
+        repository().findById(Long.valueOf(canceledticket.getTicketid())).ifPresent(ticket->{
+            
+            ticket.setStock(ticket.getStock() + canceledticket.getQty()); // do something
+            repository().save(ticket);
+
+            // Decreasedticket decreasedticket = new Decreasedticket(ticket);
+            // decreasedticket.publishAfterCommit();
+
+         });
 
         /** Example 1:  new item 
         Ticket ticket = new Ticket();
